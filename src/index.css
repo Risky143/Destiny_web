@@ -1,13 +1,106 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Button styles */
+.abutton {
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 1rem; /* Adjust as needed */
+  border: 2px solid #3b82f6; /* Border color */
+  color: #3b82f6; /* Text color */
+  border-radius: 9999px; /* Rounded full */
+  text-align: center;
+  text-decoration: none;
+  transition: color 1s, background-color 0.3s;
+  overflow: hidden; /* Ensure pseudo-element does not overflow */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Pseudo-element for wave effect */
+.abutton::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300%; /* Large width to ensure wave covers the button */
+  height: 300%; /* Large height to ensure wave covers the button */
+  background-color: #3b82f6; /* Wave color */
+  transition: transform 1s ease-in-out;
+  border-radius: 50%;
+  z-index: 0;
+  opacity: 0; /* Start invisible */
 }
+
+/* Hover state */
+.abutton:hover::after {
+  transform: translateX(-50%) scale(0); /* Scale down to zero */
+  opacity: 1; /* Make the wave visible */
+}
+
+.abutton:hover {
+  color: #ffffff; /* Change text color on hover */
+  background-color: #3b82f6; /* Change background color on hover */
+}
+
+/* Ensure text stays above the wave */
+.abutton span {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Responsive styles */
+
+.hover-effect {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hover-effect::before, .hover-effect::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #3b82f6; /* Tailwind's blue-500 color */
+  transform: skewY(-5deg);
+  transition: transform 0.3s ease;
+  z-index: -1;
+}
+
+.hover-effect::before {
+  background-color: #93c5fd; /* Light blue background */
+  top: 5px; /* Adjust this to control the offset */
+  left: 5px; /* Adjust this to control the offset */
+  opacity: 1;
+}
+
+.hover-effect::after {
+  top: 0;
+  left: 0;
+  opacity: 1;
+}
+
+.hover-effect:hover::before {
+  transform: skewY(0) translate(5px, 5px); /* Reset skew and move to original position */
+  opacity: 0;
+}
+
+.hover-effect:hover::after {
+  transform: skewY(0); /* Reset skew */
+  opacity: 1;
+}
+
+.grid-background {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2) 1px, transparent 1px), 
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+  background-size: 75px 75px;
+  width: 100%;
+  height: 100%;
+}
+
+/* .herbg{
+  background-image: url(../public/images/herobg.png);
+} */
